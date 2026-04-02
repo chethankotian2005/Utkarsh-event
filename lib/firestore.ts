@@ -3,8 +3,6 @@ import {
   addDoc,
   serverTimestamp,
   query,
-  where,
-  getDocs,
   onSnapshot,
   orderBy,
   QuerySnapshot,
