@@ -7,6 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -21,6 +22,7 @@ export default function Navbar() {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
+    setMobileMenuOpen(false); // Close mobile menu upon click
     if (pathname !== "/") {
       router.push(`/#${targetId}`);
     } else {
@@ -87,45 +89,73 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Links & Admin Button */}
-        <div className="flex items-center gap-8">
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#events" onClick={(e) => handleNavClick(e, "events")} className="nav-link-custom">
-              Events
-            </a>
-            <a href="#treasure-hunt" onClick={(e) => handleNavClick(e, "treasure-hunt")} className="nav-link-custom">
-              Treasure Hunt
-            </a>
-            <a href="#viral-selfie" onClick={(e) => handleNavClick(e, "viral-selfie")} className="nav-link-custom">
-              Viral Selfie
-            </a>
-          </div>
-
+      {/* Desktop Links & Admin Button */}
+        <div className="hidden md:flex items-center gap-8">
+          <a href="#events" onClick={(e) => handleNavClick(e, "events")} className="nav-link-custom">
+            Events
+          </a>
+          <a href="#treasure-hunt" onClick={(e) => handleNavClick(e, "treasure-hunt")} className="nav-link-custom">
+            Treasure Hunt
+          </a>
+          <a href="#viral-selfie" onClick={(e) => handleNavClick(e, "viral-selfie")} className="nav-link-custom">
+            Viral Selfie
+          </a>
           <Link
             href="/admin"
-            className="hidden sm:block"
+            className="flex items-center justify-center font-mono text-[0.6rem] uppercase tracking-widest transition-all duration-300 relative group overflow-hidden"
             style={{
-              border: "1px solid var(--gold)",
-              borderRadius: "0",
-              background: "transparent",
+              width: "60px",
+              height: "24px",
+              border: "1px solid rgba(212,175,55,0.4)",
               color: "var(--gold)",
-              padding: "8px 24px",
-              fontFamily: "var(--font-space-mono)",
-              fontSize: "10px",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              transition: "all 0.3s ease",
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.background = "rgba(201,168,76,0.1)";
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.background = "transparent";
+              borderRadius: "2px",
             }}
           >
-            Admin
+            <span className="relative z-10 group-hover:text-black transition-colors duration-300">
+              Admin
+            </span>
+            <div className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ backgroundColor: "var(--gold)" }} />
           </Link>
         </div>
+
+        {/* Mobile Menu Toggle Button */}
+        <button
+          className="md:hidden flex flex-col items-center justify-center gap-1.5 w-8 h-8 z-[60]"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          <span className={`block w-6 h-[2px] transition-transform duration-300 ${mobileMenuOpen ? "translate-y-[8px] rotate-45" : ""}`} style={{ backgroundColor: "var(--gold)" }} />
+          <span className={`block w-6 h-[2px] transition-opacity duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`} style={{ backgroundColor: "var(--gold)" }} />
+          <span className={`block w-6 h-[2px] transition-transform duration-300 ${mobileMenuOpen ? "-translate-y-[8px] -rotate-45" : ""}`} style={{ backgroundColor: "var(--gold)" }} />
+        </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 bg-black/95 backdrop-blur-xl z-[50] transition-opacity duration-300 md:hidden flex flex-col items-center justify-center gap-8 ${
+          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <a href="#events" onClick={(e) => handleNavClick(e, "events")} className="font-display text-3xl gold-text uppercase tracking-widest">
+          Events
+        </a>
+        <a href="#treasure-hunt" onClick={(e) => handleNavClick(e, "treasure-hunt")} className="font-display text-3xl gold-text uppercase tracking-widest">
+          Treasure Hunt
+        </a>
+        <a href="#viral-selfie" onClick={(e) => handleNavClick(e, "viral-selfie")} className="font-display text-3xl gold-text uppercase tracking-widest">
+          Viral Selfie
+        </a>
+        <Link
+          href="/admin"
+          onClick={() => setMobileMenuOpen(false)}
+          className="mt-8 font-mono text-sm uppercase tracking-widest py-3 px-8 transition-all duration-300"
+          style={{
+            border: "1px solid rgba(212,175,55,0.4)",
+            color: "var(--gold)",
+            borderRadius: "2px",
+          }}
+        >
+          Admin Login
+        </Link>
       </div>
     </nav>
   );

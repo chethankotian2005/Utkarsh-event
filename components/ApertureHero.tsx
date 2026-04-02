@@ -188,7 +188,7 @@ export default function ApertureHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 + i * 0.15, ease: [0.215, 0.61, 0.355, 1] }}
               className="font-display text-white"
-              style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 1.1 }}
+              style={{ fontSize: "clamp(3.5rem, 8vw, 7rem)", lineHeight: 1.1 }}
             >
               {word}
             </motion.span>
