@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /treasureHunt/{doc} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null && request.auth.token.email == 'media.smvitm@sode-edu.in';
+    }
+    match /viralSelfie/{doc} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null && request.auth.token.email == 'media.smvitm@sode-edu.in';
+    }
+  }
+}

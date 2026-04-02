@@ -2,26 +2,388 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── CSS Custom Properties ─── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gold: #C9A84C;
+  --gold-light: #FFD700;
+  --gold-dark: #B8860B;
+  --gold-muted: rgba(201, 168, 76, 0.6);
+  --bg: #000000;
+  --bg-card: #0a0a0a;
+  --bg-card-2: #0d0d0d;
+  --border-gold: rgba(201, 168, 76, 0.3);
+  --border-gold-bright: rgba(255, 215, 0, 0.6);
+  --font-cormorant: var(--font-cormorant);
+  --font-dm-sans: var(--font-dm-sans);
+  --font-space-mono: var(--font-space-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base Reset ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: #ffffff;
+  font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  position: relative;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* ─── Animated Grain Overlay ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  animation: grainShift 8s steps(2) infinite;
+}
+
+@keyframes grainShift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-2px, 1px); }
+  50% { transform: translate(1px, -2px); }
+  75% { transform: translate(2px, 1px); }
+}
+
+/* ─── Typography ─── */
+.font-display {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+}
+
+.font-mono {
+  font-family: var(--font-space-mono), 'Space Mono', monospace;
+}
+
+.font-sans {
+  font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+}
+
+/* ─── Gold Gradient Text ─── */
+.gold-text {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-text-animated {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 40%, var(--gold-dark) 70%, var(--gold-light) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmerText 4s ease infinite;
+}
+
+@keyframes shimmerText {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─── Gold Gradient Background ─── */
+.gold-gradient {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 40%, var(--gold-light) 70%, var(--gold) 100%);
+}
+
+.gold-gradient-subtle {
+  background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(255,215,0,0.05) 100%);
+}
+
+/* ─── Buttons ─── */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
+  color: #000;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-gold:hover::before {
+  left: 100%;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(201, 168, 76, 0.5);
+}
+
+.btn-ghost-gold {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.btn-ghost-gold:hover {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: var(--gold-light);
+  color: var(--gold-light);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.2);
+}
+
+/* ─── Form Inputs (Gold Underline Style) ─── */
+.input-gold {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-gold);
+  color: #ffffff;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.95rem;
+  padding: 10px 4px;
+  width: 100%;
+  outline: none;
+  caret-color: var(--gold-light);
+  transition: border-color 0.3s ease;
+}
+
+.input-gold:focus {
+  border-bottom-color: var(--gold-light);
+  box-shadow: 0 2px 0 rgba(255, 215, 0, 0.3);
+}
+
+.input-gold::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.85rem;
+}
+
+.input-gold:-webkit-autofill,
+.input-gold:-webkit-autofill:hover,
+.input-gold:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #0a0a0a inset;
+  -webkit-text-fill-color: #ffffff;
+  caret-color: var(--gold-light);
+}
+
+.label-gold {
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.input-error {
+  border-bottom-color: #e57373 !important;
+}
+
+.error-msg {
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.62rem;
+  color: #e57373;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Glassmorphism Card ─── */
+.glass-card {
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-gold);
+  border-radius: 16px;
+  box-shadow:
+    0 0 40px rgba(201, 168, 76, 0.05),
+    inset 0 1px 0 rgba(255, 215, 0, 0.05);
+}
+
+.glass-card:hover {
+  border-color: var(--border-gold-bright);
+  box-shadow:
+    0 0 60px rgba(201, 168, 76, 0.1),
+    inset 0 1px 0 rgba(255, 215, 0, 0.08);
+}
+
+/* ─── Glow Effects ─── */
+.glow-gold {
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.4), 0 0 60px rgba(201, 168, 76, 0.15);
+}
+
+.logo-glow {
+  filter: drop-shadow(0 0 20px rgba(201, 168, 76, 0.7)) drop-shadow(0 0 40px rgba(255, 215, 0, 0.3));
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-dark), var(--gold));
+  border-radius: 3px;
+}
+
+/* ─── Section Utilities ─── */
+.section-padding {
+  padding: 100px 0;
+}
+
+/* ─── Pulse Animation ─── */
+@keyframes pulse-gold {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.pulse-gold {
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+
+/* ─── Shimmer Button ─── */
+@keyframes shimmerBtn {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* ─── CSS Aperture Fallback ─── */
+.aperture-svg-fallback {
+  animation: rotateSlow 20s linear infinite;
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.aperture-blade-css {
+  fill: url(#goldGrad);
+  transform-origin: 50% 50%;
+}
+
+/* ─── Gold Line ─── */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+  animation: goldLinePulse 3s ease-in-out infinite;
+}
+
+@keyframes goldLinePulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ─── Stats Card ─── */
+.stat-card {
+  background: rgba(10, 10, 10, 0.9);
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ─── Table ─── */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table thead tr {
+  background: linear-gradient(135deg, rgba(201, 168, 76, 0.2), rgba(255, 215, 0, 0.1));
+  border-bottom: 1px solid var(--gold);
+}
+
+.admin-table th {
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold-light);
+  padding: 14px 16px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.admin-table td {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+  vertical-align: top;
+}
+
+.admin-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(201, 168, 76, 0.05);
+}
+
+/* ─── Scroll anchor offset ─── */
+[id] {
+  scroll-margin-top: 80px;
+}
+
+/* ─── Modal ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Loading spinner ─── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
 }

@@ -1,0 +1,305 @@
+﻿  Γû▓ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/7) ...
+   Generating static pages (1/7) 
+   Generating static pages (3/7) 
+node.exe : O 
+[FirebaseError]: 
+Firebase: Error 
+(auth/invalid-api-key).
+At C:\Program 
+Files\nodejs\npx.ps1:29 
+char:3
++   & $NODE_EXE 
+$NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo       
+       : NotSpe    
+cified: (O [Fire    
+baseErro...valid    
+-api-key).:Strin    g) 
+[], RemoteExc    eption
+    + FullyQualified    
+ErrorId : Native    
+CommandError
+ 
+    at y (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376462)
+    at v (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376510)
+    at i.instanceFactory 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:429608)
+    at 
+a.getOrInitializeService 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:362651)
+    at a.initialize (D:\U
+tkarsh\utkarsh-smvitm\.ne
+xt\server\chunks\188.js:3
+:362059)
+    at eU (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:414421)
+    at tw (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:430277)
+    at 902 (D:\Utkarsh\ut
+karsh-smvitm\.next\server
+\chunks\923.js:1:891)
+    at t (D:\Utkarsh\utka
+rsh-smvitm\.next\server\w
+ebpack-runtime.js:1:128)
+    at 2991 (D:\Utkarsh\u
+tkarsh-smvitm\.next\serve
+r\app\admin\dashboard\pag
+e.js:1:12585) {
+  code: 
+'auth/invalid-api-key',
+  customData: { appName: 
+'[DEFAULT]' },
+  digest: '3112283032'
+}
+O [FirebaseError]: 
+Firebase: Error 
+(auth/invalid-api-key).
+    at y (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376462)
+    at v (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376510)
+    at i.instanceFactory 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:429608)
+    at 
+a.getOrInitializeService 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:362651)
+    at a.initialize (D:\U
+tkarsh\utkarsh-smvitm\.ne
+xt\server\chunks\188.js:3
+:362059)
+    at eU (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:414421)
+    at tw (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:430277)
+    at 902 (D:\Utkarsh\ut
+karsh-smvitm\.next\server
+\app\admin\page.js:1:7275
+)
+    at t (D:\Utkarsh\utka
+rsh-smvitm\.next\server\w
+ebpack-runtime.js:1:128)
+    at 2991 (D:\Utkarsh\u
+tkarsh-smvitm\.next\serve
+r\app\admin\page.js:1:626
+9) {
+  code: 
+'auth/invalid-api-key',
+  customData: { appName: 
+'[DEFAULT]' },
+  digest: '2201305014'
+}
+
+Error occurred 
+prerendering page 
+"/admin/dashboard". Read 
+more: https://nextjs.org/
+docs/messages/prerender-e
+rror
+
+FirebaseError: Firebase: 
+Error 
+(auth/invalid-api-key).
+    at y (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376462)
+    at v (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376510)
+    at i.instanceFactory 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:429608)
+    at 
+a.getOrInitializeService 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:362651)
+    at a.initialize (D:\U
+tkarsh\utkarsh-smvitm\.ne
+xt\server\chunks\188.js:3
+:362059)
+    at eU (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:414421)
+    at tw (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:430277)
+    at 902 (D:\Utkarsh\ut
+karsh-smvitm\.next\server
+\chunks\923.js:1:891)
+    at t (D:\Utkarsh\utka
+rsh-smvitm\.next\server\w
+ebpack-runtime.js:1:128)
+    at 2991 (D:\Utkarsh\u
+tkarsh-smvitm\.next\serve
+r\app\admin\dashboard\pag
+e.js:1:12585)
+   Generating static pages (5/7) 
+
+Error occurred 
+prerendering page 
+"/admin". Read more: http
+s://nextjs.org/docs/messa
+ges/prerender-error
+
+FirebaseError: Firebase: 
+Error 
+(auth/invalid-api-key).
+    at y (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376462)
+    at v (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376510)
+    at i.instanceFactory 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:429608)
+    at 
+a.getOrInitializeService 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:362651)
+    at a.initialize (D:\U
+tkarsh\utkarsh-smvitm\.ne
+xt\server\chunks\188.js:3
+:362059)
+    at eU (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:414421)
+    at tw (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:430277)
+    at 902 (D:\Utkarsh\ut
+karsh-smvitm\.next\server
+\app\admin\page.js:1:7275
+)
+    at t (D:\Utkarsh\utka
+rsh-smvitm\.next\server\w
+ebpack-runtime.js:1:128)
+    at 2991 (D:\Utkarsh\u
+tkarsh-smvitm\.next\serve
+r\app\admin\page.js:1:626
+9)
+O [FirebaseError]: 
+Firebase: Error 
+(auth/invalid-api-key).
+    at y (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376462)
+    at v (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376510)
+    at i.instanceFactory 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:429608)
+    at 
+a.getOrInitializeService 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:362651)
+    at a.initialize (D:\U
+tkarsh\utkarsh-smvitm\.ne
+xt\server\chunks\188.js:3
+:362059)
+    at eU (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:414421)
+    at tw (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:430277)
+    at 902 (D:\Utkarsh\ut
+karsh-smvitm\.next\server
+\chunks\923.js:1:891)
+    at t (D:\Utkarsh\utka
+rsh-smvitm\.next\server\w
+ebpack-runtime.js:1:128)
+    at 7857 (D:\Utkarsh\u
+tkarsh-smvitm\.next\serve
+r\chunks\923.js:1:967) {
+  code: 
+'auth/invalid-api-key',
+  customData: { appName: 
+'[DEFAULT]' },
+  digest: '3513445436'
+}
+
+Error occurred 
+prerendering page "/". 
+Read more: https://nextjs
+.org/docs/messages/preren
+der-error
+
+FirebaseError: Firebase: 
+Error 
+(auth/invalid-api-key).
+    at y (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376462)
+    at v (D:\Utkarsh\utka
+rsh-smvitm\.next\server\c
+hunks\188.js:3:376510)
+    at i.instanceFactory 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:429608)
+    at 
+a.getOrInitializeService 
+(D:\Utkarsh\utkarsh-smvit
+m\.next\server\chunks\188
+.js:3:362651)
+    at a.initialize (D:\U
+tkarsh\utkarsh-smvitm\.ne
+xt\server\chunks\188.js:3
+:362059)
+    at eU (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:414421)
+    at tw (D:\Utkarsh\utk
+arsh-smvitm\.next\server\
+chunks\188.js:3:430277)
+    at 902 (D:\Utkarsh\ut
+karsh-smvitm\.next\server
+\chunks\923.js:1:891)
+    at t (D:\Utkarsh\utka
+rsh-smvitm\.next\server\w
+ebpack-runtime.js:1:128)
+    at 7857 (D:\Utkarsh\u
+tkarsh-smvitm\.next\serve
+r\chunks\923.js:1:967)
+ Γ£ô Generating static pages (7/7)
+
+> Export encountered 
+errors on following 
+paths:
+	/admin/dashboard/page: 
+/admin/dashboard
+	/admin/page: /admin
+	/page: /

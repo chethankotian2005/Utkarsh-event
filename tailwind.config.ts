@@ -8,9 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ["var(--font-cormorant)", "Cormorant Garamond", "serif"],
+        sans: ["var(--font-dm-sans)", "DM Sans", "sans-serif"],
+        mono: ["var(--font-space-mono)", "Space Mono", "monospace"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        gold: "#C9A84C",
+        "gold-light": "#FFD700",
+        "gold-dark": "#B8860B",
+        black: "#000000",
+        "card-black": "#0a0a0a",
       },
     },
   },
