@@ -44,14 +44,24 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <Image
-            src="/utkarsh-logo.jpg"
-            alt="Utkarsh Logo"
-            width={40}
-            height={40}
-            className="rounded-full transition-transform duration-500 group-hover:rotate-[360deg]"
-            style={{ filter: "drop-shadow(0 0 8px rgba(212,175,55,0.5))" }}
-          />
+          <div
+            style={{
+              width: '44px',
+              height: '44px',
+              borderRadius: '50%',
+              overflow: 'hidden',
+              flexShrink: 0,
+              position: 'relative',
+            }}
+          >
+            <Image
+              src="/utkarsh-logo.jpg"
+              alt="Utkarsh Logo"
+              fill
+              className="transition-transform duration-500 group-hover:rotate-[360deg]"
+              style={{ objectFit: 'cover', objectPosition: 'center', filter: "drop-shadow(0 0 8px rgba(212,175,55,0.5))" }}
+            />
+          </div>
           <div className="flex flex-col">
             <span
               style={{

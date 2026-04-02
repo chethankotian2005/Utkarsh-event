@@ -392,13 +392,21 @@ export default function AdminDashboardPage() {
             gap: 10,
           }}
         >
-          <div className="relative w-8 h-8 shrink-0">
+          <div
+            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              overflow: 'hidden',
+              flexShrink: 0,
+              position: 'relative',
+            }}
+          >
             <Image
               src="/utkarsh-logo.jpg"
               alt="Utkarsh"
               fill
-              sizes="32px"
-              className="object-contain rounded-full logo-glow"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
           </div>
           <div>

@@ -18,14 +18,20 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative w-14 h-14"
+          style={{
+            width: '56px',
+            height: '56px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            flexShrink: 0,
+            position: 'relative',
+          }}
         >
           <Image
             src="/utkarsh-logo.jpg"
             alt="Utkarsh SMVITM"
             fill
-            sizes="56px"
-            className="object-contain rounded-full logo-glow"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
           />
         </motion.div>
 

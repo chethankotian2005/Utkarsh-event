@@ -108,14 +108,23 @@ export default function SuccessModal({ isOpen, teamName, eventName, onClose }: S
             transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
             className="relative z-10 flex flex-col items-center text-center"
           >
-            <div className="mb-6 relative">
+            <div
+              className="mb-6"
+              style={{
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                flexShrink: 0,
+                position: 'relative',
+                filter: "drop-shadow(0 0 30px rgba(212,175,55,0.8))"
+              }}
+            >
               <Image
                 src="/utkarsh-logo.jpg"
                 alt="Utkarsh Logo"
-                width={100}
-                height={100}
-                className="rounded-full"
-                style={{ filter: "drop-shadow(0 0 30px rgba(212,175,55,0.8))" }}
+                fill
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
               />
             </div>
             

@@ -59,14 +59,22 @@ export default function AdminPage() {
         style={{ maxWidth: 440, width: "100%" }}
       >
         {/* Logo */}
-        <div className="relative w-24 h-24">
+        <div
+          style={{
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            flexShrink: 0,
+            position: 'relative',
+            margin: '0 auto 1.5rem auto'
+          }}
+        >
           <Image
             src="/utkarsh-logo.jpg"
             alt="Utkarsh"
             fill
-            sizes="96px"
-            className="object-contain rounded-full logo-glow"
-            priority
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
           />
         </div>
 

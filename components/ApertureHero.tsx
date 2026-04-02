@@ -146,14 +146,25 @@ export default function ApertureHero() {
             animate={{ y: ["-8px", "8px", "-8px"] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Image
-              src="/utkarsh-logo.jpg"
-              alt="Utkarsh Logo"
-              width={90}
-              height={90}
-              className="rounded-full"
-              style={{ filter: "drop-shadow(0 0 18px rgba(212,175,55,0.8))" }}
-            />
+            <div
+              style={{
+                width: '88px',
+                height: '88px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                flexShrink: 0,
+                position: 'relative',
+                boxShadow: "0 0 0 2px rgba(212,175,55,0.6), 0 0 30px rgba(212,175,55,0.4)",
+                filter: "drop-shadow(0 0 20px rgba(212,175,55,0.9))",
+              }}
+            >
+              <Image
+                src="/utkarsh-logo.jpg"
+                alt="Utkarsh Logo"
+                fill
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+              />
+            </div>
           </motion.div>
         </motion.div>
 
