@@ -2,12 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import LenisScroll from "@/components/LenisScroll";
-import dynamic from 'next/dynamic';
-
-const ParticleField3D = dynamic(
-  () => import('@/components/ParticleField3D'),
-  { ssr: false }
-);
+import ParticleField from "@/components/ParticleField";
 
 export const metadata: Metadata = {
   title: "My SMVITM, My Pride — Utkarsh Media Team",
@@ -28,23 +23,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased bg-black">
+      <body className="font-sans antialiased">
         <LenisScroll />
-        <ParticleField3D />
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          {children}
-          <Toaster
-            position="top-center"
-            toastOptions={{
-              style: {
-                background: "#0a0a0a",
-                color: "#FFD700",
-                border: "1px solid #C9A84C",
-                fontFamily: "var(--font-outfit)",
-              },
-            }}
-          />
-        </div>
+        <ParticleField />
+        {children}
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: "#0a0a0a",
+              color: "#FFD700",
+              border: "1px solid #C9A84C",
+              fontFamily: "var(--font-outfit)",
+            },
+          }}
+        />
       </body>
     </html>
   );
