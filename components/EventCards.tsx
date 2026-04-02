@@ -258,7 +258,7 @@ export default function EventCards() {
                   <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
                     <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Overview
                   </h4>
-                  <p className="opacity-80">Participants will compete in teams to locate hidden "logo coins" across the campus using clues. Each discovery must be accompanied by sharing a meaningful experience related to SMVITM.</p>
+                  <p className="opacity-80">Participants will compete in teams to locate hidden &quot;logo coins&quot; across the campus using clues. Each discovery must be accompanied by sharing a meaningful experience related to SMVITM.</p>
                 </div>
                 <div>
                   <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
@@ -287,7 +287,7 @@ export default function EventCards() {
                     <li>No tampering or hiding coins again</li>
                     <li>No interference with other teams</li>
                     <li>Any form of cheating leads to disqualification</li>
-                    <li>Judges' decision is final</li>
+                    <li>Judges&apos; decision is final</li>
                   </ul>
                 </div>
               </div>
