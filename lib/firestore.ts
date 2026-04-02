@@ -32,24 +32,7 @@ export interface ViralSelfieRegistration {
   registeredAt?: Date;
 }
 
-async function checkDuplicate(
-  collectionName: string,
-  teamName: string,
-  teamLeadUSN: string
-): Promise<{ isDuplicate: boolean; field?: string }> {
-  const col = collection(db, collectionName);
-
-  const nameQuery = query(col, where("teamName", "==", teamName));
-  const nameSnap = await getDocs(nameQuery);
-  if (!nameSnap.empty) return { isDuplicate: true, field: "team name" };
-
-  const usnQuery = query(col, where("teamLeadUSN", "==", teamLeadUSN.toUpperCase()));
-  const usnSnap = await getDocs(usnQuery);
-  if (!usnSnap.empty) return { isDuplicate: true, field: "USN" };
-
-  return { isDuplicate: false };
-}
-
+// Removed checkDuplicate function as it violates read security rules.
 export async function addTreasureHuntRegistration(
   data: Omit<TreasureHuntRegistration, "id" | "registeredAt">
 ): Promise<{ success: boolean; error?: string }> {
