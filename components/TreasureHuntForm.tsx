@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -27,19 +27,16 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-function InputField({
-  id,
-  label,
-  error,
-  prefix,
-  ...rest
-}: {
-  id: string;
-  label: string;
-  placeholder?: string;
-  error?: string;
-  prefix?: string;
-} & React.InputHTMLAttributes<HTMLInputElement>) {
+const InputField = forwardRef<
+  HTMLInputElement,
+  {
+    id: string;
+    label: string;
+    placeholder?: string;
+    error?: string;
+    prefix?: string;
+  } & React.InputHTMLAttributes<HTMLInputElement>
+>(({ id, label, error, prefix, ...rest }, ref) => {
   return (
     <div className="flex flex-col gap-1 w-full">
       <div className="form-group-floating flex items-center">
@@ -60,6 +57,7 @@ function InputField({
         <div className="relative flex-1">
           <input
             id={id}
+            ref={ref}
             placeholder=" "
             className={`input-floating ${error ? "input-error" : ""}`}
             {...rest}
@@ -72,7 +70,8 @@ function InputField({
       {error && <p className="error-msg">{error}</p>}
     </div>
   );
-}
+});
+InputField.displayName = "InputField";
 
 export default function TreasureHuntForm() {
   const [submitting, setSubmitting] = useState(false);
