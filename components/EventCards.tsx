@@ -66,6 +66,7 @@ function EventCardTilt({
     ctaLabel: string;
     ctaHref: string;
     ctaId: string;
+    details: { label: string; value: string }[];
   };
   direction: "left" | "right";
 }) {
@@ -144,27 +145,15 @@ function EventCardTilt({
         </p>
 
         <div className="my-8 flex flex-col gap-4 font-mono text-xs uppercase tracking-[0.2em]" style={{ color: "rgba(212,175,55,0.6)", transform: "translateZ(20px)" }}>
-          <div className="flex items-center gap-4">
-            <span>Rules</span>
-            <span className="flex-1 overflow-hidden" style={{ color: "var(--gold)" }}>
-              ────────────────────────────────────────────────
-            </span>
-            <span>TBD</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span>Time</span>
-            <span className="flex-1 overflow-hidden" style={{ color: "var(--gold)" }}>
-              ────────────────────────────────────────────────
-            </span>
-            <span>TBD</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span>Duration</span>
-            <span className="flex-1 overflow-hidden" style={{ color: "var(--gold)" }}>
-              ────────────────────────────────────────────────
-            </span>
-            <span>TBD</span>
-          </div>
+          {event.details.map((detail, index) => (
+            <div key={index} className="flex items-center gap-4">
+              <span>{detail.label}</span>
+              <span className="flex-1 overflow-hidden" style={{ color: "var(--gold)" }}>
+                ────────────────────────────────────────────────
+              </span>
+              <span>{detail.value}</span>
+            </div>
+          ))}
         </div>
 
         <div className="mt-auto pt-4" style={{ transform: "translateZ(50px)" }}>
@@ -193,6 +182,11 @@ export default function EventCards() {
       ctaLabel: "Register for Treasure Hunt",
       ctaHref: "#treasure-hunt",
       ctaId: "event-card-cta-treasure",
+      details: [
+        { label: "Date", value: "9th April" },
+        { label: "Team Size", value: "2–4 Members" },
+        { label: "Format", value: "3 Rounds" },
+      ],
     },
     {
       id: "viral-selfie-card",
@@ -204,6 +198,11 @@ export default function EventCards() {
       ctaLabel: "Register for Viral Selfie",
       ctaHref: "#viral-selfie",
       ctaId: "event-card-cta-selfie",
+      details: [
+        { label: "Duration", value: "April 9th - 14th" },
+        { label: "Platform", value: "Instagram" },
+        { label: "Participation", value: "Solo or Team" },
+      ],
     },
   ];
 
@@ -242,6 +241,112 @@ export default function EventCards() {
         <div className="flex flex-col md:flex-row gap-10">
           <EventCardTilt event={events[0]} direction="left" />
           <EventCardTilt event={events[1]} direction="right" />
+        </div>
+
+        {/* Detailed Event Rules Section */}
+        <div className="mt-32 border-t pt-24" style={{ borderColor: "rgba(212,175,55,0.15)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 text-white/80 font-sans leading-relaxed">
+            {/* Treasure Hunt Details */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="font-display text-4xl gold-text mb-8">Treasure Hunt Rules</h3>
+              <div className="space-y-8 text-sm md:text-base">
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Overview
+                  </h4>
+                  <p className="opacity-80">Participants will compete in teams to locate hidden "logo coins" across the campus using clues. Each discovery must be accompanied by sharing a meaningful experience related to SMVITM.</p>
+                </div>
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Team Structure
+                  </h4>
+                  <ul className="list-disc pl-5 opacity-80 space-y-1.5">
+                    <li>Team size: 2–4 members</li>
+                    <li>All participants must register before the event starts</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Event Format
+                  </h4>
+                  <div className="space-y-4 opacity-80">
+                    <p><strong className="text-white font-medium">Round 1: Clue-Based Hunt</strong><br/>Teams will receive hints to locate hidden logo coins. For each coin found, teams must share a genuine experience related to SMVITM. Top teams qualify for Round 2.</p>
+                    <p><strong className="text-white font-medium">Round 2: Hunt with Hurdles</strong><br/>Teams must complete additional challenges to validate coins. For each coin found, teams must share a meaningful SMVITM experience. Top teams qualify for the Final Round.</p>
+                    <p><strong className="text-white font-medium">Final Round: Social Media Challenge</strong><br/>Teams must visit the Photo Booth, capture a photo, and post it on Instagram by collaborating with the official SMVITM account.</p>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Rules & Regulations
+                  </h4>
+                  <ul className="list-disc pl-5 opacity-80 space-y-1.5">
+                    <li>No tampering or hiding coins again</li>
+                    <li>No interference with other teams</li>
+                    <li>Any form of cheating leads to disqualification</li>
+                    <li>Judges' decision is final</li>
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Viral Selfie Details */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="font-display text-4xl gold-text mb-8">Viral Selfie Rules</h3>
+              <div className="space-y-8 text-sm md:text-base">
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Overview
+                  </h4>
+                  <p className="opacity-80">Participants will capture their best photo or selfie within the SMVITM campus and showcase it on Instagram.</p>
+                </div>
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Participation Rules
+                  </h4>
+                  <ul className="list-disc pl-5 opacity-80 space-y-1.5">
+                    <li>Individual or team participation allowed</li>
+                    <li>Photo/selfie must be taken within campus</li>
+                    <li>Content must be original and relevant</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Submission Guidelines
+                  </h4>
+                  <ul className="list-disc pl-5 opacity-80 space-y-1.5">
+                    <li>Capture selfies between 9th–14th April</li>
+                    <li>All participants must post on 14th April (Mandatory)</li>
+                    <li>Post on Instagram collaborating with official SMVITM account</li>
+                    <li>Account must be public</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Winning Criteria
+                  </h4>
+                  <p className="opacity-80">Winners will be decided based on number of likes</p>
+                </div>
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Rules & Regulations
+                  </h4>
+                  <ul className="list-disc pl-5 opacity-80 space-y-1.5">
+                    <li>No fake engagement</li>
+                    <li>Inappropriate content leads to disqualification</li>
+                    <li>Only one entry per participant/team</li>
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
