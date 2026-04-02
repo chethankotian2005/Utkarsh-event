@@ -1,20 +1,21 @@
 'use client';
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-
-// Track mouse in normalized device coords
-const mouse = new THREE.Vector2(9999, 9999);
-if (typeof window !== 'undefined') {
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-  });
-}
 
 function Particles({ count = 350 }) {
   const mesh = useRef<THREE.Points>(null!);
   const { camera } = useThree();
+  const mouse = useRef(new THREE.Vector2(9999, 9999));
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
 
   // Generate initial positions and velocities
   const { positions, velocities, colors } = useMemo(() => {
@@ -56,7 +57,7 @@ function Particles({ count = 350 }) {
     const geo = mesh.current.geometry;
 
     // Unproject mouse to world space at z=0
-    const mouseWorld = new THREE.Vector3(mouse.x, mouse.y, 0.5);
+    const mouseWorld = new THREE.Vector3(mouse.current.x, mouse.current.y, 0.5);
     mouseWorld.unproject(camera);
     const dir = mouseWorld.sub(camera.position).normalize();
     const dist = -camera.position.z / dir.z;
@@ -105,18 +106,22 @@ function Particles({ count = 350 }) {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          args={[positions, 3]}
+          count={count}
+          array={positions}
+          itemSize={3}
         />
         <bufferAttribute
           attach="attributes-color"
-          args={[colors, 3]}
+          count={count}
+          array={colors}
+          itemSize={3}
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.06}
+        size={0.12}
         vertexColors
         transparent
-        opacity={0.75}
+        opacity={0.85}
         sizeAttenuation
         depthWrite={false}
       />
@@ -131,12 +136,24 @@ export default function ParticleField3D() {
       inset: 0,
       zIndex: 0,
       pointerEvents: 'none',
+      background: 'transparent',
+      isolation: 'isolate',
     }}>
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
-        gl={{ alpha: true, antialias: false }}
-        style={{ background: 'transparent' }}
+        gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
+        style={{
+          width: '100%',
+          height: '100%',
+          background: 'transparent',
+          display: 'block',
+        }}
       >
+        {/* Temporary sphere for testing visibility */}
+        <mesh position={[0, 0, 0]}>
+          <sphereGeometry args={[0.5, 16, 16]} />
+          <meshBasicMaterial color="white" />
+        </mesh>
         <Particles count={350} />
       </Canvas>
     </div>

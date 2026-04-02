@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import LenisScroll from "@/components/LenisScroll";
-import ParticleField3D from "@/components/ParticleField3D";
+import dynamic from 'next/dynamic';
+
+const ParticleField3D = dynamic(
+  () => import('@/components/ParticleField3D'),
+  { ssr: false }
+);
 
 export const metadata: Metadata = {
   title: "My SMVITM, My Pride — Utkarsh Media Team",
