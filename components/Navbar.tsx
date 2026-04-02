@@ -1,173 +1,122 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+
+    window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    if (pathname !== "/") {
+      router.push(`/#${targetId}`);
     } else {
-      document.body.style.overflow = "";
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     }
-  }, [menuOpen]);
-
-  const navLinks = [
-    { label: "Events", href: "#events" },
-    { label: "Treasure Hunt", href: "#treasure-hunt" },
-    { label: "Viral Selfie", href: "#viral-selfie" },
-  ];
+  };
 
   return (
-    <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-black/90 backdrop-blur-md border-b border-[rgba(201,168,76,0.25)]"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-9 h-9 shrink-0">
-              <Image
-                src="/utkarsh-logo.jpg"
-                alt="Utkarsh Logo"
-                fill
-                sizes="36px"
-                className="object-contain rounded-full logo-glow transition-all duration-300 group-hover:scale-110"
-                priority
-              />
-            </div>
+    <nav
+      className="fixed top-0 left-0 w-full z-50 transition-all duration-300"
+      style={{
+        background: scrolled ? "rgba(0,0,0,0.85)" : "transparent",
+        backdropFilter: scrolled ? "blur(20px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(212,175,55,0.15)" : "1px solid transparent",
+        padding: "16px 0",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <Image
+            src="/utkarsh-logo.jpg"
+            alt="Utkarsh Logo"
+            width={40}
+            height={40}
+            className="rounded-full transition-transform duration-500 group-hover:rotate-[360deg]"
+            style={{ filter: "drop-shadow(0 0 8px rgba(212,175,55,0.5))" }}
+          />
+          <div className="flex flex-col">
             <span
-              className="font-display gold-text font-semibold text-lg tracking-wider hidden sm:block"
-              style={{ fontFamily: "var(--font-cormorant)" }}
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontWeight: 700,
+                fontSize: "1.2rem",
+                color: "var(--gold-bright)",
+                lineHeight: 1,
+              }}
             >
               UTKARSH
             </span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-white/70 hover:text-[var(--gold-light)] transition-colors duration-300 font-medium tracking-wide"
-              >
-                {link.label}
-              </a>
-            ))}
-            <Link
-              href="/admin"
-              className="btn-ghost-gold px-5 py-2 rounded text-xs"
-            >
-              Admin Login
-            </Link>
-          </div>
-
-          {/* Mobile Hamburger */}
-          <button
-            id="nav-menu-toggle"
-            className="md:hidden flex flex-col gap-1.5 p-2 z-50"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            aria-label="Toggle menu"
-          >
             <span
-              className={`block w-6 h-0.5 transition-all duration-300 ${
-                menuOpen
-                  ? "bg-[var(--gold)] rotate-45 translate-y-2"
-                  : "bg-white"
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 transition-all duration-300 ${
-                menuOpen ? "bg-[var(--gold)] opacity-0" : "bg-white"
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 transition-all duration-300 ${
-                menuOpen
-                  ? "bg-[var(--gold)] -rotate-45 -translate-y-2"
-                  : "bg-white"
-              }`}
-            />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Full-Screen Menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            ref={menuRef}
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "tween", duration: 0.35 }}
-            className="fixed inset-0 z-40 bg-black flex flex-col items-center justify-center gap-10"
-          >
-            <div className="relative w-20 h-20 mb-4">
-              <Image
-                src="/utkarsh-logo.jpg"
-                alt="Utkarsh"
-                fill
-                sizes="80px"
-                className="object-contain rounded-full logo-glow"
-              />
-            </div>
-
-            {navLinks.map((link, i) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + i * 0.08 }}
-                className="font-display text-3xl gold-text tracking-widest"
-                style={{ fontFamily: "var(--font-cormorant)" }}
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </motion.a>
-            ))}
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.38 }}
-            >
-              <Link
-                href="/admin"
-                className="btn-ghost-gold px-8 py-3 rounded text-sm mt-4"
-                onClick={() => setMenuOpen(false)}
-              >
-                Admin Login
-              </Link>
-            </motion.div>
-
-            <p
-              className="absolute bottom-10 text-white/30 text-xs font-mono tracking-widest"
-              style={{ fontFamily: "var(--font-space-mono)" }}
+              style={{
+                fontFamily: "var(--font-space-mono)",
+                fontSize: "0.55rem",
+                letterSpacing: "0.15em",
+                color: "var(--text-muted)",
+              }}
             >
               SMVITM MEDIA TEAM
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            </span>
+          </div>
+        </Link>
+
+        {/* Links & Admin Button */}
+        <div className="flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#events" onClick={(e) => handleNavClick(e, "events")} className="nav-link-custom">
+              Events
+            </a>
+            <a href="#treasure-hunt" onClick={(e) => handleNavClick(e, "treasure-hunt")} className="nav-link-custom">
+              Treasure Hunt
+            </a>
+            <a href="#viral-selfie" onClick={(e) => handleNavClick(e, "viral-selfie")} className="nav-link-custom">
+              Viral Selfie
+            </a>
+          </div>
+
+          <Link
+            href="/admin"
+            className="hidden sm:block"
+            style={{
+              border: "1px solid var(--gold)",
+              borderRadius: "0",
+              background: "transparent",
+              color: "var(--gold)",
+              padding: "8px 24px",
+              fontFamily: "var(--font-space-mono)",
+              fontSize: "10px",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              transition: "all 0.3s ease",
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.background = "rgba(201,168,76,0.1)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.background = "transparent";
+            }}
+          >
+            Admin
+          </Link>
+        </div>
+      </div>
+    </nav>
   );
 }

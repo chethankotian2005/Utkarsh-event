@@ -1,10 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import dynamic from "next/dynamic";
-
-const ConfettiCanvas = dynamic(() => import("./ConfettiCanvas"), { ssr: false });
 
 interface SuccessModalProps {
   isOpen: boolean;
@@ -13,125 +11,127 @@ interface SuccessModalProps {
   onClose: () => void;
 }
 
-export default function SuccessModal({
-  isOpen,
-  teamName,
-  eventName,
-  onClose,
-}: SuccessModalProps) {
+export default function SuccessModal({ isOpen, teamName, eventName, onClose }: SuccessModalProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Auto-dismiss after 3s
+    const timer = setTimeout(() => {
+      onClose();
+    }, 3000);
+
+    const canvas = canvasRef.current;
+    if (!canvas) return () => clearTimeout(timer);
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return () => clearTimeout(timer);
+
+    let animationFrameId: number;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles: { x: number; y: number; vx: number; vy: number; radius: number; color: string; life: number }[] = [];
+    const colors = ["rgba(255, 215, 0, ", "rgba(212, 175, 55, ", "rgba(255, 255, 255, "];
+
+    // Generate 60 particles
+    for (let i = 0; i < 60; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 8 + 2;
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        radius: Math.random() * 3 + 1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        life: 1.0,
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.05; // gravity
+        p.life -= 0.015; // fade out
+
+        if (p.life > 0) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `${p.color}${p.life})`;
+          ctx.fill();
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
-          <ConfettiCanvas />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
+        >
+          {/* Confetti Canvas */}
+          <canvas
+            ref={canvasRef}
+            className="absolute inset-0 z-0 pointer-events-none"
+          />
 
           <motion.div
-            className="modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+            className="relative z-10 flex flex-col items-center text-center"
           >
-            <motion.div
-              className="glass-card p-10 flex flex-col items-center gap-6 text-center mx-6"
-              style={{ maxWidth: 480, width: "100%", zIndex: 1001 }}
-              initial={{ scale: 0.7, opacity: 0, y: 40 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.85, opacity: 0, y: 20 }}
-              transition={{ type: "spring", damping: 20, stiffness: 200 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Logo */}
-              <div className="relative w-20 h-20">
-                <Image
-                  src="/utkarsh-logo.jpg"
-                  alt="Utkarsh"
-                  fill
-                  sizes="80px"
-                  className="object-contain rounded-full logo-glow"
-                />
-              </div>
-
-              {/* Gold checkmark */}
-              <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                style={{
-                  width: 64,
-                  height: 64,
-                  borderRadius: "50%",
-                  background: "linear-gradient(135deg, var(--gold-dark), var(--gold-light))",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow: "0 0 30px rgba(255,215,0,0.4)",
-                }}
-              >
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                  <path
-                    d="M7 16L13 22L25 10"
-                    stroke="#000"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </motion.div>
-
-              {/* Text */}
-              <div>
-                <h2
-                  className="font-display gold-text"
-                  style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontSize: "2rem",
-                    fontWeight: 600,
-                  }}
-                >
-                  You&apos;re Registered!
-                </h2>
-                <p style={{ color: "rgba(255,255,255,0.6)", marginTop: 8, fontSize: "0.9rem" }}>
-                  Team <span style={{ color: "var(--gold-light)", fontWeight: 600 }}>{teamName}</span> has
-                  been successfully registered for
-                </p>
-                <p
-                  className="gold-text-animated"
-                  style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontSize: "1.3rem",
-                    fontWeight: 600,
-                    marginTop: 4,
-                  }}
-                >
-                  {eventName}
-                </p>
-              </div>
-
-              {/* Tagline */}
-              <p
-                style={{
-                  fontFamily: "var(--font-space-mono)",
-                  fontSize: "0.65rem",
-                  color: "var(--gold-muted)",
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                }}
-              >
-                My SMVITM, My Pride
-              </p>
-
-              {/* Close button */}
-              <button
-                id="success-modal-close"
-                onClick={onClose}
-                className="btn-gold px-10 py-3 rounded text-sm w-full"
-              >
-                Close
-              </button>
-            </motion.div>
+            <div className="mb-6 relative">
+              <Image
+                src="/utkarsh-logo.jpg"
+                alt="Utkarsh Logo"
+                width={100}
+                height={100}
+                className="rounded-full"
+                style={{ filter: "drop-shadow(0 0 30px rgba(212,175,55,0.8))" }}
+              />
+            </div>
+            
+            <h2 className="font-display text-white text-4xl md:text-6xl mb-2">
+              Registration Confirmed
+            </h2>
+            
+            <p className="font-mono text-gold uppercase tracking-[0.2em] text-sm mt-4">
+              {eventName}
+            </p>
+            
+            <p className="font-sans text-white/70 text-lg mt-2">
+              Team: <span className="text-white font-medium">{teamName}</span>
+            </p>
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   );

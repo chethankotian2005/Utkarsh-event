@@ -43,32 +43,33 @@ function InputField({
   prefix?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
-    <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="label-gold">
-        {label}
-      </label>
-      <div className="flex items-center">
+    <div className="flex flex-col gap-1 w-full">
+      <div className="form-group-floating flex items-center">
         {prefix && (
           <span
             style={{
-              fontFamily: "var(--font-space-mono)",
-              fontSize: "0.85rem",
+              fontFamily: "var(--font-outfit)",
+              fontSize: "1rem",
               color: "var(--gold)",
-              paddingBottom: 10,
-              paddingTop: 10,
+              paddingBottom: 8,
               paddingRight: 4,
-              borderBottom: "1px solid rgba(201,168,76,0.3)",
+              borderBottom: "1px solid rgba(212,175,55,0.3)",
             }}
           >
             {prefix}
           </span>
         )}
-        <input
-          id={id}
-          placeholder={placeholder}
-          className={`input-gold flex-1 ${error ? "input-error" : ""}`}
-          {...rest}
-        />
+        <div className="relative flex-1">
+          <input
+            id={id}
+            placeholder=" "
+            className={`input-floating ${error ? "input-error" : ""}`}
+            {...rest}
+          />
+          <label htmlFor={id} className="label-floating">
+            {label}
+          </label>
+        </div>
       </div>
       {error && <p className="error-msg">{error}</p>}
     </div>
@@ -184,7 +185,17 @@ export default function ViralSelfieForm() {
             </div>
 
             {/* Form Card */}
-            <div className="glass-card p-8">
+            <div
+              className="p-8 md:p-12"
+              style={{
+                background: "linear-gradient(135deg, rgba(30,30,30,0.8) 0%, rgba(10,10,10,0.95) 100%)",
+                backdropFilter: "blur(20px)",
+                border: "1px solid rgba(212,175,55,0.25)",
+                borderTop: "3px solid var(--gold)",
+                borderRadius: "4px",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.1)",
+              }}
+            >
               <form
                 id="viral-selfie-form"
                 onSubmit={handleSubmit(onSubmit)}
@@ -193,18 +204,21 @@ export default function ViralSelfieForm() {
               >
                 {/* Team / Lead Info */}
                 <div>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-space-mono)",
-                      fontSize: "0.6rem",
-                      color: "rgba(201,168,76,0.5)",
-                      letterSpacing: "0.15em",
-                      textTransform: "uppercase",
-                      marginBottom: 16,
-                    }}
-                  >
-                    ── Lead / Entry Information
-                  </p>
+                  <div className="flex items-center gap-4 mb-4">
+                    <p
+                      style={{
+                        fontFamily: "var(--font-space-mono)",
+                        fontSize: "10px",
+                        color: "var(--gold)",
+                        letterSpacing: "0.25em",
+                        textTransform: "uppercase",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Lead / Entry Information
+                    </p>
+                    <hr className="flex-1 border-t" style={{ borderColor: "rgba(212,175,55,0.3)" }} />
+                  </div>
                   <div className="flex flex-col gap-6">
                     <InputField
                       id="vs-teamName"
@@ -243,25 +257,27 @@ export default function ViralSelfieForm() {
 
                 {/* Dynamic Participants */}
                 <div>
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-4 mt-6 gap-4">
                     <p
                       style={{
                         fontFamily: "var(--font-space-mono)",
-                        fontSize: "0.6rem",
-                        color: "rgba(201,168,76,0.5)",
-                        letterSpacing: "0.15em",
+                        fontSize: "10px",
+                        color: "var(--gold)",
+                        letterSpacing: "0.25em",
                         textTransform: "uppercase",
+                        whiteSpace: "nowrap",
                       }}
                     >
-                      ── Group Members (Optional)
+                      Group Members (Optional)
                     </p>
+                    <hr className="flex-1 border-t" style={{ borderColor: "rgba(212,175,55,0.3)" }} />
                     <button
                       type="button"
                       id="vs-add-member"
                       onClick={() => append({ name: "" })}
-                      className="btn-ghost-gold px-4 py-1.5 rounded text-xs"
+                      className="btn-ghost-gold px-4 py-1.5 rounded text-[10px]"
                     >
-                      + Add Member
+                      + ADD MEMBER
                     </button>
                   </div>
 
@@ -352,16 +368,15 @@ export default function ViralSelfieForm() {
                   id="vs-submit"
                   type="submit"
                   disabled={submitting}
-                  className="btn-gold w-full py-4 rounded mt-2"
-                  style={{ fontSize: "0.9rem" }}
+                  className="submit-btn-new mt-8"
                 >
                   {submitting ? (
                     <span className="flex items-center justify-center gap-3">
                       <span className="spinner" />
-                      Registering...
+                      REGISTERING
                     </span>
                   ) : (
-                    "Register for Viral Selfie →"
+                    "Register for Viral Selfie"
                   )}
                 </button>
               </form>

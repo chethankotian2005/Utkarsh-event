@@ -1,27 +1,8 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-cormorant",
-  display: "swap",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
-  display: "swap",
-});
+import LenisScroll from "@/components/LenisScroll";
+import ParticleField from "@/components/ParticleField";
 
 export const metadata: Metadata = {
   title: "My SMVITM, My Pride — Utkarsh Media Team",
@@ -41,8 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable} ${spaceMono.variable}`}>
-      <body className="font-sans bg-black text-white antialiased">
+    <html lang="en">
+      <body className="font-sans antialiased">
+        <LenisScroll />
+        <ParticleField />
         {children}
         <Toaster
           position="top-center"
@@ -51,7 +34,7 @@ export default function RootLayout({
               background: "#0a0a0a",
               color: "#FFD700",
               border: "1px solid #C9A84C",
-              fontFamily: "var(--font-dm-sans)",
+              fontFamily: "var(--font-outfit)",
             },
           }}
         />

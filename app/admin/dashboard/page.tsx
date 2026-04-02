@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -71,35 +71,73 @@ function StatsCard({
   label: string;
   icon: string;
 }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [rotate, setRotate] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const xPct = x / rect.width - 0.5;
+    const yPct = y / rect.height - 0.5;
+
+    // map to [-10deg, 10deg]
+    setRotate({ x: -yPct * 20, y: xPct * 20 });
+  };
+
+  const handleMouseLeave = () => {
+    setRotate({ x: 0, y: 0 });
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="stat-card p-8 flex flex-col gap-3"
+      className="flex-1"
+      style={{ perspective: "1000px" }}
     >
-      <span style={{ fontSize: "2rem" }}>{icon}</span>
-      <p
-        className="gold-text"
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="w-full h-full p-8 flex flex-col gap-3 transition-transform duration-300"
         style={{
-          fontFamily: "var(--font-cormorant)",
-          fontSize: "3.5rem",
-          fontWeight: 700,
-          lineHeight: 1,
+          transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
+          transformStyle: "preserve-3d",
+          background: "linear-gradient(135deg, #0d0d0d 0%, #1a1400 100%)",
+          border: "1px solid rgba(212,175,55,0.25)",
+          borderRadius: "8px",
+          cursor: "default"
         }}
       >
-        {count}
-      </p>
-      <p
-        style={{
-          fontFamily: "var(--font-space-mono)",
-          fontSize: "0.65rem",
-          color: "rgba(201,168,76,0.6)",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-        }}
-      >
-        {label}
-      </p>
+        <span style={{ fontSize: "2rem", transform: "translateZ(30px)" }}>{icon}</span>
+        <p
+          className="gold-text"
+          style={{
+            fontFamily: "var(--font-cormorant)",
+            fontSize: "3.5rem",
+            fontWeight: 700,
+            lineHeight: 1,
+            transform: "translateZ(40px)"
+          }}
+        >
+          {count}
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-space-mono)",
+            fontSize: "0.65rem",
+            color: "rgba(212,175,55,0.6)",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            transform: "translateZ(20px)"
+          }}
+        >
+          {label}
+        </p>
+      </div>
     </motion.div>
   );
 }
