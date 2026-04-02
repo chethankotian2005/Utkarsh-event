@@ -183,10 +183,9 @@ export default function TreasureHuntForm() {
                         color: "var(--gold)",
                         letterSpacing: "0.25em",
                         textTransform: "uppercase",
-                        whiteSpace: "nowrap",
                       }}
                     >
-                      Team Information
+                      Lead / Entry Information
                     </p>
                     <hr className="flex-1 border-t" style={{ borderColor: "rgba(212,175,55,0.3)" }} />
                   </div>

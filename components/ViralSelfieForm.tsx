@@ -210,7 +210,6 @@ export default function ViralSelfieForm() {
                         color: "var(--gold)",
                         letterSpacing: "0.25em",
                         textTransform: "uppercase",
-                        whiteSpace: "nowrap",
                       }}
                     >
                       Lead / Entry Information
@@ -251,7 +250,7 @@ export default function ViralSelfieForm() {
 
                 {/* Dynamic Participants */}
                 <div>
-                  <div className="flex items-center justify-between mb-4 mt-6 gap-4">
+                  <div className="flex flex-wrap items-center justify-between mb-4 mt-6 gap-y-2 gap-x-4">
                     <p
                       style={{
                         fontFamily: "var(--font-space-mono)",
@@ -259,7 +258,6 @@ export default function ViralSelfieForm() {
                         color: "var(--gold)",
                         letterSpacing: "0.25em",
                         textTransform: "uppercase",
-                        whiteSpace: "nowrap",
                       }}
                     >
                       Group Members (Optional)
