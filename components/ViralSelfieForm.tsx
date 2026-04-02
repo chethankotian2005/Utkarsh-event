@@ -221,29 +221,25 @@ export default function ViralSelfieForm() {
                   <div className="flex flex-col gap-6">
                     <InputField
                       id="vs-teamName"
-                      label="Team / Entry Name"
-                      placeholder="Your team or selfie entry name"
+                      label="Team Name / Entry Reference"
                       error={errors.teamName?.message}
                       {...register("teamName")}
                     />
                     <InputField
                       id="vs-teamLeadName"
-                      label="Your Full Name"
-                      placeholder="Full name"
+                      label="Lead Participant Name"
                       error={errors.teamLeadName?.message}
                       {...register("teamLeadName")}
                     />
                     <InputField
                       id="vs-teamLeadUSN"
-                      label="Your USN"
-                      placeholder="e.g. 4SO22CS001"
+                      label="Lead USN"
                       error={errors.teamLeadUSN?.message}
                       {...register("teamLeadUSN")}
                     />
                     <InputField
                       id="vs-teamLeadPhone"
-                      label="Phone Number"
-                      placeholder="10-digit mobile number"
+                      label="Lead Phone"
                       prefix="+91"
                       type="tel"
                       maxLength={10}
@@ -293,8 +289,7 @@ export default function ViralSelfieForm() {
                         <div className="flex-1">
                           <InputField
                             id={`vs-member-${index}`}
-                            label={`Member ${index + 1} — Full Name`}
-                            placeholder={`Member ${index + 1}`}
+                            label={`Member ${index + 1}`}
                             error={errors.participants?.[index]?.name?.message}
                             {...register(`participants.${index}.name`)}
                           />

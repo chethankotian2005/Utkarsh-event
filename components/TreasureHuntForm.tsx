@@ -195,28 +195,24 @@ export default function TreasureHuntForm() {
                     <InputField
                       id="th-teamName"
                       label="Team Name"
-                      placeholder="Enter your team name"
                       error={errors.teamName?.message}
                       {...register("teamName")}
                     />
                     <InputField
                       id="th-teamLeadName"
                       label="Team Lead Name"
-                      placeholder="Full name of team lead"
                       error={errors.teamLeadName?.message}
                       {...register("teamLeadName")}
                     />
                     <InputField
                       id="th-teamLeadUSN"
                       label="Team Lead USN"
-                      placeholder="e.g. 4SO22CS001"
                       error={errors.teamLeadUSN?.message}
                       {...register("teamLeadUSN")}
                     />
                     <InputField
                       id="th-teamLeadPhone"
                       label="Team Lead Phone"
-                      placeholder="10-digit mobile number"
                       prefix="+91"
                       type="tel"
                       maxLength={10}
@@ -250,7 +246,6 @@ export default function TreasureHuntForm() {
                         key={n}
                         id={`th-participant${n}`}
                         label={`Participant ${n} — Full Name`}
-                        placeholder={`Participant ${n}`}
                         error={errors[`participant${n}` as keyof FormValues]?.message}
                         {...register(`participant${n}` as keyof FormValues)}
                       />
