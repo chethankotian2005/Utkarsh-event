@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     description: "Join the grandest event campaign by SMVITM Media Team. Register now for Treasure Hunt & Viral Selfie.",
     type: "website",
   },
+  icons: {
+    icon: "/utkarsh-logo.jpg"
+  }
 };
 
 export default function RootLayout({
