@@ -31,7 +31,6 @@ type FormValues = z.infer<typeof schema>;
 function InputField({
   id,
   label,
-  placeholder,
   error,
   prefix,
   ...rest
