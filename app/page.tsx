@@ -8,7 +8,7 @@ import ApertureHero from "@/components/ApertureHero";
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen bg-black">
+    <main className="relative min-h-screen bg-transparent">
       <div className="relative" style={{ zIndex: 2 }}>
         <Navbar />
         <ApertureHero />
