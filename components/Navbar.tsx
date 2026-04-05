@@ -95,6 +95,9 @@ export default function Navbar() {
           <a href="#viral-selfie" onClick={(e) => handleNavClick(e, "viral-selfie")} className="nav-link-custom">
             Viral Selfie
           </a>
+          <a href="#contact" onClick={(e) => handleNavClick(e, "contact")} className="nav-link-custom">
+            Contact
+          </a>
           <Link
             href="/admin"
             className="flex items-center justify-center font-mono text-[0.6rem] uppercase tracking-widest transition-all duration-300 relative group overflow-hidden"
@@ -145,6 +148,7 @@ export default function Navbar() {
             <a href="#events" onClick={(e) => handleNavClick(e, "events")} className="font-mono text-3xl gold-text uppercase tracking-[0.22em]">Events</a>
             <a href="#treasure-hunt" onClick={(e) => handleNavClick(e, "treasure-hunt")} className="font-mono text-3xl gold-text uppercase tracking-[0.22em]">Treasure Hunt</a>
             <a href="#viral-selfie" onClick={(e) => handleNavClick(e, "viral-selfie")} className="font-mono text-3xl gold-text uppercase tracking-[0.22em]">Viral Selfie</a>
+            <a href="#contact" onClick={(e) => handleNavClick(e, "contact")} className="font-mono text-3xl gold-text uppercase tracking-[0.22em]">Contact</a>
             <Link
               href="/admin"
               onClick={() => setMenuOpen(false)}

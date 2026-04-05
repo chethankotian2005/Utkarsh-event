@@ -697,6 +697,10 @@ body::before {
 }
 
 @media (max-width: 480px) {
+  #contact .grid {
+    grid-template-columns: 1fr !important;
+  }
+
   .hero-tagline {
     font-size: 2rem;
   }
