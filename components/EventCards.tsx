@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function TreasureChestIcon() {
   return (
@@ -72,6 +72,11 @@ function EventCardTilt({
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia("(hover: none)").matches);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!cardRef.current) return;
@@ -96,16 +101,15 @@ function EventCardTilt({
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="flex-1"
+      className="event-card flex-1"
       style={{ perspective: "1000px" }}
     >
       <div
         ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        {...(isTouchDevice ? {} : { onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave })}
         className="w-full h-full flex flex-col p-10 transition-all duration-300 group"
         style={{
-          transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
+          transform: isTouchDevice ? "none" : `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
           transformStyle: "preserve-3d",
           background: "linear-gradient(135deg, #0d0d0d 0%, #1a1400 100%)",
           border: "1px solid rgba(212,175,55,0.25)",
@@ -146,9 +150,9 @@ function EventCardTilt({
 
         <div className="my-8 flex flex-col gap-4 font-mono text-xs uppercase tracking-[0.2em]" style={{ color: "rgba(212,175,55,0.6)", transform: "translateZ(20px)" }}>
           {event.details.map((detail, index) => (
-            <div key={index} className="flex items-center gap-4">
+            <div key={index} className="event-detail-row flex items-center gap-4">
               <span>{detail.label}</span>
-              <span className="flex-1 overflow-hidden" style={{ color: "var(--gold)" }}>
+              <span className="separator flex-1 overflow-hidden" style={{ color: "var(--gold)" }}>
                 ────────────────────────────────────────────────
               </span>
               <span>{detail.value}</span>
@@ -238,7 +242,7 @@ export default function EventCards() {
           />
         </div>
 
-        <div className="flex flex-col md:flex-row gap-10">
+        <div className="events-grid grid grid-cols-1 md:grid-cols-2 gap-10">
           <EventCardTilt event={events[0]} direction="left" />
           <EventCardTilt event={events[1]} direction="right" />
         </div>
@@ -251,6 +255,7 @@ export default function EventCards() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              className="rules-card"
             >
               <h3 className="font-display text-4xl gold-text mb-8">Treasure Hunt Rules</h3>
               <div className="space-y-8 text-sm md:text-base">
@@ -298,6 +303,7 @@ export default function EventCards() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              className="rules-card"
             >
               <h3 className="font-display text-4xl gold-text mb-8">Viral Selfie Rules</h3>
               <div className="space-y-8 text-sm md:text-base">

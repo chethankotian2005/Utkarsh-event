@@ -1,5 +1,4 @@
 
-import Navbar from "@/components/Navbar";
 import EventCards from "@/components/EventCards";
 import TreasureHuntForm from "@/components/TreasureHuntForm";
 import ViralSelfieForm from "@/components/ViralSelfieForm";
@@ -10,7 +9,6 @@ export default function HomePage() {
   return (
     <main className="relative min-h-screen bg-transparent">
       <div className="relative" style={{ zIndex: 2 }}>
-        <Navbar />
         <ApertureHero />
         <EventCards />
         <TreasureHuntForm />

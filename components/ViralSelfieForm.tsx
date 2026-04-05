@@ -40,7 +40,7 @@ const InputField = forwardRef<
 >(({ id, label, error, prefix, ...rest }, ref) => {
   return (
     <div className="flex flex-col gap-1 w-full">
-      <div className="form-group-floating flex items-center">
+      <div className="form-group-floating phone-input-group flex items-center">
         {prefix && (
           <span
             style={{
@@ -123,7 +123,7 @@ export default function ViralSelfieForm() {
     <>
       <section
         id="viral-selfie"
-        className="section-padding relative"
+        className="section-padding form-section relative"
         style={{ zIndex: 2 }}
       >
         <div className="max-w-2xl mx-auto px-6">
@@ -184,7 +184,7 @@ export default function ViralSelfieForm() {
 
             {/* Form Card */}
             <div
-              className="p-8 md:p-12"
+              className="form-card p-8 md:p-12"
               style={{
                 background: "linear-gradient(135deg, rgba(30,30,30,0.8) 0%, rgba(10,10,10,0.95) 100%)",
                 backdropFilter: "blur(20px)",
@@ -359,7 +359,7 @@ export default function ViralSelfieForm() {
                   id="vs-submit"
                   type="submit"
                   disabled={submitting}
-                  className="submit-btn-new mt-8"
+                  className="submit-btn-new submit-btn mt-8"
                 >
                   {submitting ? (
                     <span className="flex items-center justify-center gap-3">

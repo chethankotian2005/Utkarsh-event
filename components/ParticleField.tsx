@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Particle {
   x: number;
@@ -17,6 +17,23 @@ export default function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
   const mouseRef = useRef({ x: -1000, y: -1000, isHovering: false });
+  const [particleCount, setParticleCount] = useState(350);
+
+  useEffect(() => {
+    const updateParticleCount = () => {
+      if (window.innerWidth < 768) {
+        setParticleCount(80);
+      } else if (window.innerWidth < 1024) {
+        setParticleCount(180);
+      } else {
+        setParticleCount(350);
+      }
+    };
+
+    updateParticleCount();
+    window.addEventListener("resize", updateParticleCount);
+    return () => window.removeEventListener("resize", updateParticleCount);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -34,8 +51,8 @@ export default function ParticleField() {
 
     const colors = ["rgba(212,175,55,0.5)", "rgba(255,215,0,0.3)", "rgba(255,255,255,0.15)"];
     
-    // Spawn 280 particles
-    const particles: Particle[] = Array.from({ length: 280 }).map(() => {
+    // Spawn a viewport-aware particle count
+    const particles: Particle[] = Array.from({ length: particleCount }).map(() => {
       const vx = (Math.random() - 0.5) * 0.5;
       const vy = (Math.random() - 0.5) * 0.5;
       return {
@@ -63,12 +80,21 @@ export default function ParticleField() {
       mouseRef.current.isHovering = true;
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (!touch) return;
+      mouseRef.current.x = touch.clientX;
+      mouseRef.current.y = touch.clientY;
+      mouseRef.current.isHovering = true;
+    };
+
     const handleMouseLeave = () => {
       mouseRef.current.isHovering = false;
     };
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
     window.addEventListener("mouseleave", handleMouseLeave);
 
     const updateAndDraw = () => {
@@ -134,12 +160,13 @@ export default function ParticleField() {
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, []);
+  }, [particleCount]);
 
   return (
     <canvas

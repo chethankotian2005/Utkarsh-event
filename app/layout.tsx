@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import LenisScroll from "@/components/LenisScroll";
@@ -19,6 +19,12 @@ export const metadata: Metadata = {
   }
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,6 +32,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function () {
+              if (typeof window === 'undefined' || !window.performance) return;
+              var perf = window.performance;
+              if (typeof perf.clearMarks !== 'function') {
+                try { perf.clearMarks = function () {}; } catch (e) {}
+              }
+              if (typeof perf.clearMeasures !== 'function') {
+                try { perf.clearMeasures = function () {}; } catch (e) {}
+              }
+            })();`,
+          }}
+        />
+      </head>
       <body className="font-sans antialiased">
         <LenisScroll />
         <ParticleField />

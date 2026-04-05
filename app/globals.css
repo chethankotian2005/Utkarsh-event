@@ -29,6 +29,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -37,6 +38,15 @@ body {
   font-family: var(--font-outfit);
   overflow-x: hidden;
   position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ─── Animated Grain Overlay ─── */
@@ -521,4 +531,183 @@ body::before {
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
   display: inline-block;
+}
+
+/* ─── Responsive Hooks ─── */
+.rules-card {
+  border: 1px solid rgba(212,175,55,0.2);
+  border-top: 3px solid var(--gold-bright);
+  padding: 40px;
+  background: rgba(201,168,76,0.03);
+}
+
+.rules-card h2,
+.rules-card h3 {
+  font-family: var(--font-cormorant);
+}
+
+.form-section {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.form-card {
+  width: 100%;
+}
+
+.phone-input-group {
+  gap: 0;
+}
+
+.footer {
+  padding-inline: 24px;
+}
+
+.footer-text {
+  text-align: center;
+}
+
+.hero-tagline {
+  text-wrap: balance;
+}
+
+.hero-tagline span {
+  font-size: clamp(3.5rem, 8vw, 7rem) !important;
+}
+
+/* ─── Mobile & Tablet ─── */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: flex !important;
+  }
+
+  .hero-canvas-wrapper {
+    top: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    height: 45vh !important;
+  }
+
+  .hero-tagline {
+    font-size: clamp(2.2rem, 9vw, 3.5rem);
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  .hero-tagline span {
+    font-size: 2rem !important;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 0 24px;
+  }
+
+  .hero-cta-group a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-logo {
+    width: 64px !important;
+    height: 64px !important;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  .event-card {
+    transform: none !important;
+  }
+
+  .rules-card {
+    padding: 24px 20px;
+  }
+
+  .rules-card h2,
+  .rules-card h3 {
+    font-size: 1.8rem;
+  }
+
+  .rules-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .event-detail-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .event-detail-row .separator {
+    display: none;
+  }
+
+  .form-section {
+    padding: 40px 16px;
+  }
+
+  .form-card {
+    padding: 28px 20px;
+    border-radius: 0;
+    margin: 0 -16px;
+    border-left: none;
+    border-right: none;
+  }
+
+  .form-card input {
+    font-size: 16px;
+    padding: 14px 0 10px;
+  }
+
+  .phone-input-group {
+    flex-direction: row;
+  }
+
+  .submit-btn {
+    height: 52px;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+  }
+
+  .footer {
+    padding: 40px 20px 32px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .footer-text {
+    font-size: 11px !important;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-tagline {
+    font-size: 2rem;
+  }
+
+  .hero-tagline span {
+    font-size: 2rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, Suspense } from "react";
+import { useEffect, useRef, Suspense, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import * as THREE from "three";
@@ -8,7 +8,9 @@ import gsap from "gsap";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-function ApertureBlades() {
+const taglineWords = "My SMVITM, My Pride".split(" ");
+
+function ApertureBlades({ enableParallax }: { enableParallax: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
   const bladesRef = useRef<THREE.Mesh[]>([]);
   const targetRotation = useRef({ x: 0, y: 0 });
@@ -40,6 +42,8 @@ function ApertureBlades() {
       );
     });
 
+    if (!enableParallax) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth) * 2 - 1;
       const y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -49,7 +53,7 @@ function ApertureBlades() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [enableParallax]);
 
   useFrame((state) => {
     if (!groupRef.current) return;
@@ -107,6 +111,7 @@ function ApertureBlades() {
 
 export default function ApertureHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -116,17 +121,26 @@ export default function ApertureHero() {
         { opacity: 1, duration: 1.4, ease: "power2.out" }
       );
     }
+
+    const updateViewport = () => {
+      setIsMobile(window.innerWidth < 768 || window.matchMedia("(hover: none)").matches);
+    };
+
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
+
+    return () => window.removeEventListener("resize", updateViewport);
   }, []);
 
   return (
     <section className="relative w-full overflow-hidden" style={{ height: "100svh" }}>
       {/* 3D Canvas Container */}
-      <div ref={containerRef} className="absolute inset-0 z-0">
+         <div ref={containerRef} className="hero-canvas-wrapper absolute inset-0 z-0">
         <Suspense fallback={<div className="w-full h-full bg-black" />}>
-          <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 2]}>
+          <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={isMobile ? 1 : [1, 2]}>
             <ambientLight intensity={0.3} />
             <pointLight position={[3, 3, 3]} intensity={2} color="#FFD700" />
-            <ApertureBlades />
+            <ApertureBlades enableParallax={!isMobile} />
             <Environment preset="city" />
           </Canvas>
         </Suspense>
@@ -147,6 +161,7 @@ export default function ApertureHero() {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             <div
+              className="hero-logo"
               style={{
                 width: '88px',
                 height: '88px',
@@ -180,15 +195,15 @@ export default function ApertureHero() {
         </motion.p>
 
         {/* Main Tagline */}
-        <div className="flex flex-wrap justify-center gap-x-4 px-6 text-center">
-          {["My", "SMVITM,", "My", "Pride"].map((word, i) => (
+        <div className="hero-tagline flex flex-wrap justify-center gap-x-4 px-6 text-center">
+          {taglineWords.map((word, i) => (
             <motion.span
               key={i}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 + i * 0.15, ease: [0.215, 0.61, 0.355, 1] }}
               className="font-display text-white"
-              style={{ fontSize: "clamp(3.5rem, 8vw, 7rem)", lineHeight: 1.1 }}
+              style={{ fontSize: "clamp(3.5rem, 8vw, 7rem)", lineHeight: 1.1, display: "inline-block", marginRight: "0.25em" }}
             >
               {word}
             </motion.span>
@@ -200,7 +215,7 @@ export default function ApertureHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.6 }}
-          className="mt-12 flex flex-col sm:flex-row gap-6 pointer-events-auto"
+          className="hero-cta-group mt-12 flex flex-col sm:flex-row gap-6 pointer-events-auto"
         >
           <a href="#treasure-hunt" className="hero-cta">
             TREASURE HUNT

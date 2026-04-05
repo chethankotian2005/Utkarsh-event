@@ -1,36 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
-    setMobileMenuOpen(false); // Close mobile menu upon click
+    setMenuOpen(false);
+
     if (pathname !== "/") {
       router.push(`/#${targetId}`);
-    } else {
-      const el = document.getElementById(targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
+      return;
     }
+
+    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -44,24 +41,23 @@ export default function Navbar() {
       }}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div
             style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              overflow: 'hidden',
+              width: "44px",
+              height: "44px",
+              borderRadius: "50%",
+              overflow: "hidden",
               flexShrink: 0,
-              position: 'relative',
+              position: "relative",
             }}
           >
             <Image
               src="/utkarsh-logo.jpg"
               alt="Utkarsh Logo"
               fill
-              className="transition-transform duration-500 group-hover:rotate-[360deg]"
-              style={{ objectFit: 'cover', objectPosition: 'center', filter: "drop-shadow(0 0 8px rgba(212,175,55,0.5))" }}
+              className="transition-transform duration-500 group-hover:rotate-[360deg] hero-logo"
+              style={{ objectFit: "cover", objectPosition: "center", filter: "drop-shadow(0 0 8px rgba(212,175,55,0.5))" }}
             />
           </div>
           <div className="flex flex-col">
@@ -89,8 +85,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-      {/* Desktop Links & Admin Button */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="nav-links hidden md:flex items-center gap-8">
           <a href="#events" onClick={(e) => handleNavClick(e, "events")} className="nav-link-custom">
             Events
           </a>
@@ -111,52 +106,60 @@ export default function Navbar() {
               borderRadius: "2px",
             }}
           >
-            <span className="relative z-10 group-hover:text-black transition-colors duration-300">
-              Admin
-            </span>
+            <span className="relative z-10 group-hover:text-black transition-colors duration-300">Admin</span>
             <div className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ backgroundColor: "var(--gold)" }} />
           </Link>
         </div>
 
-        {/* Mobile Menu Toggle Button */}
         <button
-          className="md:hidden flex flex-col items-center justify-center gap-1.5 w-8 h-8 z-[60]"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          type="button"
+          className="hamburger md:hidden flex flex-col items-center justify-center gap-1.5 w-10 h-10 z-[60]"
+          onClick={() => setMenuOpen((current) => !current)}
+          aria-label="Menu"
+          aria-expanded={menuOpen}
         >
-          <span className={`block w-6 h-[2px] transition-transform duration-300 ${mobileMenuOpen ? "translate-y-[8px] rotate-45" : ""}`} style={{ backgroundColor: "var(--gold)" }} />
-          <span className={`block w-6 h-[2px] transition-opacity duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`} style={{ backgroundColor: "var(--gold)" }} />
-          <span className={`block w-6 h-[2px] transition-transform duration-300 ${mobileMenuOpen ? "-translate-y-[8px] -rotate-45" : ""}`} style={{ backgroundColor: "var(--gold)" }} />
+          <span style={{ width: "20px", height: "1px", background: "#C9A84C", margin: "4px 0" }} />
+          <span style={{ width: "20px", height: "1px", background: "#C9A84C", margin: "4px 0" }} />
+          <span style={{ width: "20px", height: "1px", background: "#C9A84C", margin: "4px 0" }} />
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      <div
-        className={`fixed inset-0 bg-black/95 backdrop-blur-xl z-[50] transition-opacity duration-300 md:hidden flex flex-col items-center justify-center gap-8 ${
-          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <a href="#events" onClick={(e) => handleNavClick(e, "events")} className="font-display text-3xl gold-text uppercase tracking-widest">
-          Events
-        </a>
-        <a href="#treasure-hunt" onClick={(e) => handleNavClick(e, "treasure-hunt")} className="font-display text-3xl gold-text uppercase tracking-widest">
-          Treasure Hunt
-        </a>
-        <a href="#viral-selfie" onClick={(e) => handleNavClick(e, "viral-selfie")} className="font-display text-3xl gold-text uppercase tracking-widest">
-          Viral Selfie
-        </a>
-        <Link
-          href="/admin"
-          onClick={() => setMobileMenuOpen(false)}
-          className="mt-8 font-mono text-sm uppercase tracking-widest py-3 px-8 transition-all duration-300"
-          style={{
-            border: "1px solid rgba(212,175,55,0.4)",
-            color: "var(--gold)",
-            borderRadius: "2px",
-          }}
-        >
-          Admin Login
-        </Link>
-      </div>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-[999] bg-black/97 flex flex-col items-center justify-center gap-10 md:hidden"
+          >
+            <button
+              type="button"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+              className="absolute top-6 right-6 hamburger flex items-center justify-center w-10 h-10"
+            >
+              <span style={{ position: "absolute", width: "22px", height: "1px", background: "#C9A84C", transform: "rotate(45deg)" }} />
+              <span style={{ position: "absolute", width: "22px", height: "1px", background: "#C9A84C", transform: "rotate(-45deg)" }} />
+            </button>
+
+            <a href="#events" onClick={(e) => handleNavClick(e, "events")} className="font-mono text-3xl gold-text uppercase tracking-[0.22em]">Events</a>
+            <a href="#treasure-hunt" onClick={(e) => handleNavClick(e, "treasure-hunt")} className="font-mono text-3xl gold-text uppercase tracking-[0.22em]">Treasure Hunt</a>
+            <a href="#viral-selfie" onClick={(e) => handleNavClick(e, "viral-selfie")} className="font-mono text-3xl gold-text uppercase tracking-[0.22em]">Viral Selfie</a>
+            <Link
+              href="/admin"
+              onClick={() => setMenuOpen(false)}
+              className="mt-6 font-mono text-sm uppercase tracking-widest py-3 px-8 transition-all duration-300"
+              style={{
+                border: "1px solid rgba(212,175,55,0.4)",
+                color: "var(--gold)",
+                borderRadius: "2px",
+              }}
+            >
+              Admin Login
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

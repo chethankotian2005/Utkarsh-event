@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative pt-0" style={{ zIndex: 2 }}>
+    <footer className="footer relative pt-0" style={{ zIndex: 2 }}>
       {/* Animated gold gradient line */}
       <div className="gold-line" />
 
@@ -18,6 +18,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
+          className="footer-logo"
           style={{
             width: '56px',
             height: '56px',
@@ -53,7 +54,7 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="font-display"
+          className="font-display footer-text"
           style={{
             fontFamily: "var(--font-cormorant)",
             fontSize: "1.1rem",
@@ -93,6 +94,7 @@ export default function Footer() {
         </motion.p>
 
         <p
+          className="footer-text"
           style={{
             fontFamily: "var(--font-space-mono)",
             fontSize: "0.58rem",
