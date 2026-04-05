@@ -195,7 +195,7 @@ export default function EventCards() {
     {
       id: "viral-selfie-card",
       icon: <CameraIcon />,
-      name: "Viral Selfie",
+      name: "SMVITM Viral Selfie",
       tagline: "Strike a pose. Go viral.",
       description:
         "Capture the spirit of SMVITM in the most creative selfie — solo or squad. Show us your pride and make it go viral.",
@@ -203,9 +203,10 @@ export default function EventCards() {
       ctaHref: "#viral-selfie",
       ctaId: "event-card-cta-selfie",
       details: [
-        { label: "Duration", value: "April 9th - 14th" },
+        { label: "Duration", value: "9th April – 14th April" },
+        { label: "Posting Deadline", value: "14th April (Mandatory)" },
         { label: "Platform", value: "Instagram" },
-        { label: "Participation", value: "Solo or Team" },
+        { label: "Participation", value: "Individual or Team" },
       ],
     },
   ];
@@ -240,6 +241,12 @@ export default function EventCards() {
               transformOrigin: "center"
             }}
           />
+          <p className="mt-8 text-sm md:text-base uppercase tracking-[0.2em]" style={{ color: "var(--text-muted)" }}>
+            Utkarsh &amp; Extra Curricular Committee
+          </p>
+          <p className="mt-2 text-sm md:text-base" style={{ color: "rgba(255,255,255,0.7)" }}>
+            Bringing power-packed events designed for the most creative minds.
+          </p>
         </div>
 
         <div className="events-grid grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -281,7 +288,7 @@ export default function EventCards() {
                   <div className="space-y-4 opacity-80">
                     <p><strong className="text-white font-medium">Round 1: Clue-Based Hunt</strong><br/>Teams will receive hints to locate hidden logo coins. For each coin found, teams must share a genuine experience related to SMVITM. Top teams qualify for Round 2.</p>
                     <p><strong className="text-white font-medium">Round 2: Hunt with Hurdles</strong><br/>Teams must complete additional challenges to validate coins. For each coin found, teams must share a meaningful SMVITM experience. Top teams qualify for the Final Round.</p>
-                    <p><strong className="text-white font-medium">Final Round: Social Media Challenge</strong><br/>Teams must visit the Photo Booth, capture a photo, and post it on Instagram by collaborating with the official SMVITM account.</p>
+                    <p><strong className="text-white font-medium">Final Round: Social Media Challenge</strong><br/>Teams must visit the Photo Booth, capture a photo, and post it on Instagram by collaborating with the official SMVITM account. Students must post on the same day (9th April). They will have time until 14th April, 9PM to gain likes. Any likes received after 14th April, 9PM will not be considered.</p>
                   </div>
                 </div>
                 <div>
@@ -305,8 +312,17 @@ export default function EventCards() {
               viewport={{ once: true }}
               className="rules-card"
             >
-              <h3 className="font-display text-4xl gold-text mb-8">Viral Selfie Rules</h3>
+              <h3 className="font-display text-4xl gold-text mb-8">SMVITM Viral Selfie Rules</h3>
               <div className="space-y-8 text-sm md:text-base">
+                <div>
+                  <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Duration &amp; Deadline
+                  </h4>
+                  <ul className="list-disc pl-5 opacity-80 space-y-1.5">
+                    <li>Duration: 9th April – 14th April</li>
+                    <li>Posting Deadline: 14th April (Mandatory)</li>
+                  </ul>
+                </div>
                 <div>
                   <h4 className="text-white font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-3">
                     <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Overview
@@ -330,6 +346,7 @@ export default function EventCards() {
                   <ul className="list-disc pl-5 opacity-80 space-y-1.5">
                     <li>Capture selfies between 9th–14th April</li>
                     <li>All participants must post on 14th April (Mandatory)</li>
+                    <li>Participants will have time until 20th April, 9PM to gain likes. Any likes received after 20th April, 9PM will not be considered.</li>
                     <li>Post on Instagram collaborating with official SMVITM account</li>
                     <li>Account must be public</li>
                   </ul>

@@ -380,6 +380,7 @@ export default function ViralSelfieForm() {
         isOpen={showModal}
         teamName={successTeam}
         eventName="SMVITM Viral Selfie"
+        eventType="viralSelfie"
         onClose={() => setShowModal(false)}
       />
     </>

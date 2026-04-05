@@ -302,6 +302,7 @@ export default function TreasureHuntForm() {
         isOpen={showModal}
         teamName={successTeam}
         eventName="Treasure Hunt"
+        eventType="treasureHunt"
         onClose={() => setShowModal(false)}
       />
     </>
