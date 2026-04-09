@@ -313,6 +313,31 @@ body::before {
   padding: 100px 0;
 }
 
+/* ─── Running Update Strip ─── */
+.postponed-strip {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 12px 0;
+}
+
+.postponed-strip-track {
+  flex-shrink: 0;
+  min-width: 100%;
+  margin: 0;
+  font-family: var(--font-space-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #f6df9a;
+  animation: postponedStripMove 18s linear infinite;
+}
+
+@keyframes postponedStripMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
 /* ─── Pulse Animation ─── */
 @keyframes pulse-gold {
   0%, 100% { opacity: 1; transform: scale(1); }
@@ -655,6 +680,16 @@ body::before {
 
   .form-section {
     padding: 40px 16px;
+  }
+
+  .postponed-strip {
+    padding: 10px 0;
+  }
+
+  .postponed-strip-track {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    animation-duration: 14s;
   }
 
   .form-card {

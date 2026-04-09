@@ -187,7 +187,7 @@ export default function EventCards() {
       ctaHref: "#treasure-hunt",
       ctaId: "event-card-cta-treasure",
       details: [
-        { label: "Date", value: "9th April" },
+        { label: "Date", value: "13th April 2026" },
         { label: "Team Size", value: "2–4 Members" },
         { label: "Format", value: "3 Rounds" },
       ],
@@ -203,8 +203,8 @@ export default function EventCards() {
       ctaHref: "#viral-selfie",
       ctaId: "event-card-cta-selfie",
       details: [
-        { label: "Duration", value: "9th April – 14th April" },
-        { label: "Posting Deadline", value: "14th April (Mandatory)" },
+        { label: "Duration", value: "13th April – 18th April" },
+        { label: "Posting Deadline", value: "18th April (Mandatory)" },
         { label: "Platform", value: "Instagram" },
         { label: "Participation", value: "Individual or Team" },
       ],
@@ -288,7 +288,7 @@ export default function EventCards() {
                   <div className="space-y-4 opacity-80">
                     <p><strong className="text-white font-medium">Round 1: Clue-Based Hunt</strong><br/>Teams will receive hints to locate hidden logo coins. For each coin found, teams must share a genuine experience related to SMVITM. Top teams qualify for Round 2.</p>
                     <p><strong className="text-white font-medium">Round 2: Hunt with Hurdles</strong><br/>Teams must complete additional challenges to validate coins. For each coin found, teams must share a meaningful SMVITM experience. Top teams qualify for the Final Round.</p>
-                    <p><strong className="text-white font-medium">Final Round: Social Media Challenge</strong><br/>Teams must visit the Photo Booth, capture a photo, and post it on Instagram by collaborating with the official SMVITM account. Students must post on the same day (9th April). They will have time until 14th April, 9PM to gain likes. Any likes received after 14th April, 9PM will not be considered.</p>
+                    <p><strong className="text-white font-medium">Final Round: Social Media Challenge</strong><br/>Teams must visit the Photo Booth, capture a photo, and post it on Instagram by collaborating with the official SMVITM account. Students must post on the same day (13th April 2026). They will have time until 18th April 2026, 9PM to gain likes. Any likes received after 18th April 2026, 9PM will not be considered.</p>
                   </div>
                 </div>
                 <div>
@@ -319,8 +319,8 @@ export default function EventCards() {
                     <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Duration &amp; Deadline
                   </h4>
                   <ul className="list-disc pl-5 opacity-80 space-y-1.5">
-                    <li>Duration: 9th April – 14th April</li>
-                    <li>Posting Deadline: 14th April (Mandatory)</li>
+                    <li>Duration: 13th April – 18th April</li>
+                    <li>Posting Deadline: 18th April (Mandatory)</li>
                   </ul>
                 </div>
                 <div>
@@ -344,9 +344,9 @@ export default function EventCards() {
                     <span className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full"></span> Submission Guidelines
                   </h4>
                   <ul className="list-disc pl-5 opacity-80 space-y-1.5">
-                    <li>Capture selfies between 9th–14th April</li>
-                    <li>All participants must post on 14th April (Mandatory)</li>
-                    <li>Participants will have time until 20th April, 9PM to gain likes. Any likes received after 20th April, 9PM will not be considered.</li>
+                    <li>Capture selfies between 13th–18th April</li>
+                    <li>All participants must post on 18th April (Mandatory)</li>
+                    <li>Participants will have time until 22nd April, 9PM to gain likes. Any likes received after 22nd April, 9PM will not be considered.</li>
                     <li>Post on Instagram collaborating with official SMVITM account</li>
                     <li>Account must be public</li>
                   </ul>

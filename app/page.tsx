@@ -18,6 +18,23 @@ export default function HomePage() {
     <main className="relative min-h-screen bg-transparent">
       <div className="relative" style={{ zIndex: 2 }}>
         <ApertureHero />
+        <section
+          aria-label="Event update"
+          style={{
+            borderTop: "1px solid rgba(212,175,55,0.2)",
+            borderBottom: "1px solid rgba(212,175,55,0.2)",
+            background: "linear-gradient(90deg, rgba(201,168,76,0.14), rgba(201,168,76,0.06), rgba(201,168,76,0.14))",
+          }}
+        >
+          <div className="postponed-strip">
+            <p className="postponed-strip-track">
+              EVENT POSTPONED TO 13TH APRIL 2026 • REGISTER NOW • FREE REGISTRATION • EVENT POSTPONED TO 13TH APRIL 2026 • REGISTER NOW • FREE REGISTRATION •
+            </p>
+            <p className="postponed-strip-track" aria-hidden="true">
+              EVENT POSTPONED TO 13TH APRIL 2026 • REGISTER NOW • FREE REGISTRATION • EVENT POSTPONED TO 13TH APRIL 2026 • REGISTER NOW • FREE REGISTRATION •
+            </p>
+          </div>
+        </section>
         <EventCards />
         <TreasureHuntForm />
         <ViralSelfieForm />
