@@ -600,6 +600,12 @@ body::before {
   font-size: clamp(3.5rem, 8vw, 7rem) !important;
 }
 
+.hero-free-registration {
+  font-size: clamp(1.3rem, 3.5vw, 2.6rem);
+  letter-spacing: 0.22em;
+  line-height: 1.1;
+}
+
 /* ─── Mobile & Tablet ─── */
 @media (max-width: 768px) {
   .nav-links {
@@ -634,6 +640,14 @@ body::before {
     gap: 16px;
     width: 100%;
     padding: 0 24px;
+  }
+
+  .hero-free-registration {
+    margin-top: 18px !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: clamp(1.05rem, 5.4vw, 1.75rem);
+    letter-spacing: 0.14em;
   }
 
   .hero-cta-group a {
@@ -744,6 +758,12 @@ body::before {
     font-size: 2rem !important;
   }
 
+  .hero-free-registration {
+    margin-top: 14px !important;
+    font-size: clamp(0.9rem, 5.8vw, 1.2rem);
+    letter-spacing: 0.1em;
+  }
+
   .whatsapp-card {
     padding: 20px 16px !important;
     margin-top: 20px !important;
@@ -759,5 +779,9 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .postponed-strip-track {
+    animation: none;
   }
 }

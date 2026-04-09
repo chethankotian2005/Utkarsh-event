@@ -210,6 +210,20 @@ export default function ApertureHero() {
           ))}
         </div>
 
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 1.45 }}
+          className="hero-free-registration font-mono text-center px-6 mt-6"
+          style={{
+            color: "var(--gold-bright)",
+            textTransform: "uppercase",
+            textShadow: "0 0 20px rgba(255,215,0,0.35)",
+          }}
+        >
+          Free Registration
+        </motion.p>
+
         {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0 }}
