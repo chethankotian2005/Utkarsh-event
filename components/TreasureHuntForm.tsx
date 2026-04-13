@@ -74,6 +74,7 @@ const InputField = forwardRef<
 InputField.displayName = "InputField";
 
 export default function TreasureHuntForm() {
+  const REGISTRATION_OPEN = false;
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -87,6 +88,11 @@ export default function TreasureHuntForm() {
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormValues) => {
+    if (!REGISTRATION_OPEN) {
+      setSubmitError("Treasure Hunt registrations are now closed.");
+      return;
+    }
+
     setSubmitting(true);
     setSubmitError("");
 
@@ -173,6 +179,29 @@ export default function TreasureHuntForm() {
                 className="flex flex-col gap-7"
                 noValidate
               >
+                {!REGISTRATION_OPEN && (
+                  <div
+                    style={{
+                      background: "rgba(201,168,76,0.12)",
+                      border: "1px solid rgba(201,168,76,0.45)",
+                      borderRadius: 8,
+                      padding: "14px 16px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontFamily: "var(--font-space-mono)",
+                        fontSize: "0.72rem",
+                        color: "var(--gold)",
+                        letterSpacing: "0.05em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Treasure Hunt registrations are now closed.
+                    </p>
+                  </div>
+                )}
+
                 {/* Team Info */}
                 <div>
                   <div className="flex items-center gap-4 mb-4">
@@ -193,18 +222,21 @@ export default function TreasureHuntForm() {
                     <InputField
                       id="th-teamName"
                       label="Team Name"
+                      disabled={!REGISTRATION_OPEN}
                       error={errors.teamName?.message}
                       {...register("teamName")}
                     />
                     <InputField
                       id="th-teamLeadName"
                       label="Team Lead Name"
+                      disabled={!REGISTRATION_OPEN}
                       error={errors.teamLeadName?.message}
                       {...register("teamLeadName")}
                     />
                     <InputField
                       id="th-teamLeadUSN"
                       label="Team Lead USN"
+                      disabled={!REGISTRATION_OPEN}
                       error={errors.teamLeadUSN?.message}
                       {...register("teamLeadUSN")}
                     />
@@ -215,6 +247,7 @@ export default function TreasureHuntForm() {
                       type="tel"
                       maxLength={10}
                       inputMode="numeric"
+                      disabled={!REGISTRATION_OPEN}
                       error={errors.teamLeadPhone?.message}
                       {...register("teamLeadPhone")}
                     />
@@ -244,6 +277,7 @@ export default function TreasureHuntForm() {
                         key={n}
                         id={`th-participant${n}`}
                         label={`Participant ${n} — Full Name`}
+                        disabled={!REGISTRATION_OPEN}
                         error={errors[`participant${n}` as keyof FormValues]?.message}
                         {...register(`participant${n}` as keyof FormValues)}
                       />
@@ -280,7 +314,7 @@ export default function TreasureHuntForm() {
                 <button
                   id="th-submit"
                   type="submit"
-                  disabled={submitting}
+                  disabled={submitting || !REGISTRATION_OPEN}
                   className="submit-btn-new submit-btn mt-8"
                 >
                   {submitting ? (
@@ -288,6 +322,8 @@ export default function TreasureHuntForm() {
                       <span className="spinner" />
                       REGISTERING
                     </span>
+                  ) : !REGISTRATION_OPEN ? (
+                    "Registrations Closed"
                   ) : (
                     "Register for Treasure Hunt"
                   )}
